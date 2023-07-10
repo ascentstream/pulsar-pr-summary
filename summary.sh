@@ -25,7 +25,7 @@ if [ "$1" = "daily" ]
         mkdir -p "$root_dir"
         body=$(fetch)
         echo "$body"
-        echo "$body" > "$root_dir/$search_date.md" > /dev/null
+        echo "$body" > "$root_dir/$search_date.md"
     done
 then
     fetch
