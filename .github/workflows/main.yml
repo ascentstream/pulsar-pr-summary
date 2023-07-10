@@ -7,18 +7,27 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  GIT_AUTHOR_NAME: github-actions[bot]
+  GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+  GIT_COMMITTER_NAME: github-actions[bot]
+  GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+
 jobs:
-  fetch:
+  daily-summary:
     runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        branch: [master, branch-3.0, branch-2.11, branch-2.10]
+    env: 
+      GH_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Create daily directory
-        run: mkdir -p daily/${{ matrix.branch }}
-      
       - name: Daily summary
-        run: ./summary daily
+        run: ./summary.sh daily
+        env:
+          BRANCH: master,branch-3.0,branch-2.11,branch-2.10
+
+      - name: Push
+        run: |
+          git commit -a -m "chore: daily summary" -s
+          git push
