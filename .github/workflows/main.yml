@@ -29,5 +29,6 @@ jobs:
 
       - name: Push
         run: |
-          git commit -a -m "chore: daily summary" -s
-          git push
+          git add -A
+          git commit -m "chore: daily summary" -s
+          git push origin
