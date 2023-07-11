@@ -2,6 +2,10 @@ name: Main
 
 on:
   workflow_dispatch:
+    inputs:
+      search-date:
+        type: string
+        description: 'Search date(yyyy-MM-dd)'
   schedule:
     - cron: "0 15 * * *"
 
@@ -30,6 +34,7 @@ jobs:
         run: ./summary.sh daily
         env:
           BRANCH: master,branch-3.0,branch-2.11,branch-2.10
+          SEARCH_DATE: ${{ github.event.inputs.search-date }}
 
       - name: Push
         run: |

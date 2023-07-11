@@ -14,7 +14,7 @@ readonly usage="LIMIT=100 BRANCH=master START_DATE=yyyy-MM-dd END_DATE=yyyy-MM-d
 
 if [ "$1" = "daily" ]
     readonly branches=$(echo "$BRANCH" | sed "s/,/ /g")
-    readonly search_date=$(date +%Y-%m-%d)
+    readonly search_date=${SEARCH_DATE:-$(date +%Y-%m-%d)}
     START_DATE="$search_date"
     END_DATE="$search_date"
     for branch in ${branches[@]}
