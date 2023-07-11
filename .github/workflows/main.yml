@@ -38,6 +38,10 @@ jobs:
 
       - name: Push
         run: |
-          git add -A
+          git add daily
+          if [[ "$(git status --porcelain)" == "" ]]; then
+            echo "No changes";
+            exit 0;
+          fi
           git commit -m "chore: daily summary" -s
           git push origin
