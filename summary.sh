@@ -12,7 +12,7 @@ function fetch() {
 readonly usage="LIMIT=100 BRANCH=master START_DATE=yyyy-MM-dd END_DATE=yyyy-MM-dd $(basename "$0")"
 [ "$1" = "-h" -o "$1" = "--help" ] && echo -e "$usage" && exit 0
 
-if [ "$1" = "daily" ]
+if [ "$1" = "daily" ]; then
     readonly branches=$(echo "$BRANCH" | sed "s/,/ /g")
     readonly search_date=${SEARCH_DATE:-$(date +%Y-%m-%d)}
     START_DATE="$search_date"
@@ -27,6 +27,6 @@ if [ "$1" = "daily" ]
         echo "$body"
         echo "$body" > "$root_dir/$search_date.md"
     done
-then
+else
     fetch
 fi
